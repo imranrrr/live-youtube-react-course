@@ -1,5 +1,6 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import InputField from '../../components/form/InputField';
+
 
 
 export default function Signup(){
@@ -8,6 +9,39 @@ export default function Signup(){
     email:"", dob: "", gender: "", phone: "", country: "", password: "",
     confirmation_password: "" })
     const [error, setError] = useState("")
+
+    useEffect(() =>{ 
+        console.log("its a useeffect")
+        if(error != ""){
+            alert(error)
+        }
+        // error != "" && alert(error) 
+    },[error])
+
+    // when user data is loaded then call the user product api
+    // useEffect(()=>{
+    //     alert("its a useeffect")
+    //     // call the user data api
+    //     // setUser({response.data.user})
+    //     //setUser user ka data
+    // }, []) // dependency array is empty so it will only run once
+    
+    useEffect(() =>{ 
+        if(user != null ){
+            console.log("user data is loaded")
+            //now call the user product api
+            //setProducts user ki products ho
+        }
+    },[user])
+
+// user dara load
+// user ki products ho
+
+
+
+
+
+
 
     function handleUserData(e){
         if((e.target.name === "confirmation_password" || e.target.password) && user.confirmation_password != user.password){
@@ -47,7 +81,7 @@ export default function Signup(){
 
             <InputField label="Confirm Password" type="password" name="confirmation_password" 
             value={user.confirmation_password} handleChange={handleUserData} />
-            {error && <p className="error-message">{error}</p>}
+            {/* {error && <p className="error-message">{error}</p>} */}
             <br/>
             
             <button type="submit">Sign Up</button>
